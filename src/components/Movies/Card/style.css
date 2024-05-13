@@ -1,0 +1,115 @@
+.container {
+  width: 19%;
+  height: 300px;
+  perspective: 800px;
+  margin: 20px 6px;
+}
+
+.movie-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+}
+
+.container:hover > .card {
+  cursor: pointer;
+  transform: rotateY(180deg);
+}
+
+.card {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  transition: transform 1500ms;
+  transform-style: preserve-3d;
+}
+
+.front,
+.back {
+  height: 100%;
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 0 5px 2px rgba(50, 50, 50, 0.25);
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.movie-rating {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.back {
+  background-color: #3a3a3a;
+  transform: rotateY(180deg);
+  gap: 5rem;
+}
+
+.inner-content {
+  padding: 15px;
+}
+
+.inner-content p {
+  margin-top: 5px;
+}
+
+.bld {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 1020px) {
+  .container {
+    height: 250px;
+    margin: 15px 3px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    height: 220px;
+    width: 30%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .container {
+    height: 230px;
+    width: 47%;
+    margin: 10px 4px;
+  }
+  .inner-content {
+    padding: 10px;
+  }
+
+  .inner-content p {
+    margin-top: 4px;
+    font-size: 10px;
+  }
+
+  .bld {
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+@media screen and (max-width: 360px) {
+  .container {
+    height: 370px;
+    width: 100%;
+  }
+
+  .inner-content {
+    padding: 10px;
+  }
+
+  .inner-content p {
+    margin-top: 4px;
+    font-size: 10px;
+  }
+
+  .bld {
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
