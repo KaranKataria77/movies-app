@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from "react";
 import Header from "../../components/Header";
 import Movies from "../../components/Movies";
@@ -28,6 +29,7 @@ const MovieList = () => {
     setTimeout(() => {
       fetchMoviesWithCast();
     }, 5000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeYear, activeGenres]);
 
   useEffect(() => {
