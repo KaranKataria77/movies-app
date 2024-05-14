@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Steps to run project on local machine
 
-1. Clone the repository : git clone
+1. Clone the repository : git clone https://github.com/KaranKataria77/movies-app.git
 2. cd movies-app
 3. Install dependecies : npm i
 4. Add .env file (variable name given end of the file)
