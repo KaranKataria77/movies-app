@@ -13,12 +13,14 @@
 ### Points covered
 
 1. The project is written in TypeScript.
-2. Attempt to keep all components as stateless as possible.
-3. Used Custome Hook useDebounce()
-4. The data is not called all at once; instead, movies data is added as the user scrolls using the Browser Observer API.
-5. A genre filter has been added.
-6. A search box has been added to search by movie name, actors' names, and director's name.
-7. An overview of the movie is displayed on the backside of the card as you hover over it.
+2. Aviod component re-rendering with the help of useMemo and useCallback hook
+3. Added own Internal cache startegy to avoid API calls
+4. Attempt to keep all components as stateless as possible.
+5. Used Custome Hook useDebounce()
+6. The data is not called all at once; instead, movies data is added as the user scrolls using the Browser Observer API.
+7. A genre filter has been added.
+8. A search box has been added to search by movie name, actors' names, and director's name.
+9. An overview of the movie is displayed on the backside of the card as you hover over it.
 
 ### NOTE
 
