@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useMemo, memo } from "react";
 import "./style.css";
 import Loader from "../Loader";
 import { FaSearch } from "react-icons/fa";
 
 const Header = ({
-  genresKey,
   genres,
   activeGenres,
   handleGenreChange,
   handleInputChange,
 }: {
-  genresKey: string[];
   genres: { [key: number]: string };
   activeGenres: number[];
   handleGenreChange: (genre: number) => void;
   handleInputChange: (val: string) => void;
 }) => {
+  const genresKey = useMemo(() => Object.keys(genres), [genres]);
   return (
     <div className="header">
       <div className="header-content">
@@ -53,4 +52,4 @@ const Header = ({
   );
 };
 
-export default Header;
+export default memo(Header);

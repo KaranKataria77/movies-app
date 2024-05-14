@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Header from "../../components/Header";
 import Movies from "../../components/Movies";
 import axios from "axios";
@@ -99,27 +99,30 @@ const MovieList = () => {
     setGenres(map ?? {});
   };
 
-  const handleGenreChange = (genre: number) => {
-    let allGenres = [...activeGenres];
-    if (allGenres.includes(0) || genre === 0) {
-      allGenres = [];
-    }
-    if (allGenres.includes(genre)) {
-      allGenres = allGenres.filter((gen: number) => gen !== genre);
-    } else {
-      allGenres = [...allGenres, genre];
-    }
-    if (allGenres.length <= 0) {
-      allGenres = [0];
-    }
-    setMovies([]);
-    setActiveYear(2012);
-    setActiveGenres(allGenres);
-  };
+  const handleGenreChange = useCallback(
+    (genre: number) => {
+      let allGenres = [...activeGenres];
+      if (allGenres.includes(0) || genre === 0) {
+        allGenres = [];
+      }
+      if (allGenres.includes(genre)) {
+        allGenres = allGenres.filter((gen: number) => gen !== genre);
+      } else {
+        allGenres = [...allGenres, genre];
+      }
+      if (allGenres.length <= 0) {
+        allGenres = [0];
+      }
+      setMovies([]);
+      setActiveYear(2012);
+      setActiveGenres(allGenres);
+    },
+    [activeGenres]
+  );
 
-  const handleInputChange = (val: string) => {
+  const handleInputChange = useCallback((val: string) => {
     setInputValue(val);
-  };
+  }, []);
   const filterMovie = async (searchValue: string) => {
     setLoading(true);
     searchValue = searchValue.toLowerCase();
@@ -149,7 +152,6 @@ const MovieList = () => {
   return (
     <MovieContext.Provider value={{ genres, setGenres, targetElement }}>
       <Header
-        genresKey={Object.keys(genres)}
         genres={genres}
         activeGenres={activeGenres}
         handleGenreChange={handleGenreChange}
