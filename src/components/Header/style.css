@@ -13,7 +13,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  width: 280px;
+  width: 240px;
   border-radius: 1rem;
 }
 .header-search input {
@@ -49,4 +49,11 @@
 
 .genre-btn-active {
   background-color: #ff3031;
+}
+
+@media screen and (max-width: 480px) {
+  .header-content {
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
 }

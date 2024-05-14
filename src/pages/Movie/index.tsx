@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from "react";
 import Header from "../../components/Header";
 import Movies from "../../components/Movies";
@@ -20,22 +19,17 @@ const MovieList = () => {
   const { debouncedValue } = useDebounce(inputValue);
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchGenresList();
-    }, 5000);
+    fetchGenresList();
   }, []);
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      fetchMoviesWithCast();
-    }, 5000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchMoviesWithCast();
   }, [activeYear, activeGenres]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        setActiveYear(activeYear + 1);
+        if (activeYear < 2024) setActiveYear(activeYear + 1);
         if (targetElement.current) {
           observer.unobserve(targetElement.current);
         }
@@ -52,7 +46,9 @@ const MovieList = () => {
 
   const fetchMoviesWithCast = async () => {
     try {
-      const url = `https://api.themoviedb.org/3/discover/movie?api_key=2dca580c2a14b55200e784d157207b4d&sort_by=popularity.desc&primary_release_year=${activeYear}&page=1&vote_count.gte=100${
+      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${
+        process.env.REACT_APP_API_KEY
+      }&sort_by=popularity.desc&primary_release_year=${activeYear}&page=1&vote_count.gte=100${
         !activeGenres.includes(0) && `&with_genres=${activeGenres.join("|")}`
       }`;
       const data = await axios.get(url);
@@ -60,7 +56,7 @@ const MovieList = () => {
       const casts = await Promise.all(
         data.data.results.map((movie: IMovie) => {
           return axios.get(
-            `https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=2dca580c2a14b55200e784d157207b4d`
+            `https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=${process.env.REACT_APP_API_KEY}`
           );
         })
       );

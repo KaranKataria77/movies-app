@@ -22,7 +22,7 @@ const Header = ({
         <h1 className="header-title">MOVIEFIX</h1>
         <div className="header-search">
           <input
-            placeholder="Search by movie, actor, director, genre etc name"
+            placeholder="Search by movie, actor, director etc"
             type="text"
             onChange={(e) => {
               handleInputChange(e.target.value);
