@@ -18,6 +18,9 @@ const MovieList = () => {
   const [filteredMovies, setFilteredMovies] = useState<IYearWiseMovies[]>([]);
   const targetElement = useRef(null);
   const { debouncedValue } = useDebounce(inputValue);
+  const [internalCache, setInternalCache] = useState<{
+    [key: string]: IYearWiseMovies;
+  }>({});
 
   useEffect(() => {
     fetchGenresList();
@@ -47,6 +50,13 @@ const MovieList = () => {
 
   const fetchMoviesWithCast = async () => {
     try {
+      if (internalCache[`${activeYear + activeGenres.join("")}`]) {
+        setMovies((prevState: IYearWiseMovies[]) => [
+          ...prevState,
+          internalCache[`${activeYear + activeGenres.join("")}`],
+        ]);
+        return;
+      }
       const url = `https://api.themoviedb.org/3/discover/movie?api_key=${
         process.env.REACT_APP_API_KEY
       }&sort_by=popularity.desc&primary_release_year=${activeYear}&page=1&vote_count.gte=100${
@@ -68,6 +78,17 @@ const MovieList = () => {
         movie.crew = cast.crew.filter((ct: ICrew) => ct.job === "Director");
         movie.crew = movie.crew.length > 0 ? movie.crew[0] : [];
         movie.vote_average = (movie.vote_average / 2).toFixed(1);
+      }
+      if (!internalCache[`${activeYear + activeGenres.join("")}`]) {
+        setInternalCache((prevState: any) => {
+          return {
+            ...prevState,
+            [`${activeYear + activeGenres.join("")}`]: {
+              year: activeYear,
+              movies: data?.data?.results ?? [],
+            },
+          };
+        });
       }
       setMovies((prevState: IYearWiseMovies[]) => {
         return [
